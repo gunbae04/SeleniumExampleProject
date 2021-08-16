@@ -1,2 +1,0 @@
-# SeleniumExampleProject
-Selenium Example Project
