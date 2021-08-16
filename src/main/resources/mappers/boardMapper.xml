@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.its.mapper.BoardMapper">
+
+  	<select id="getBoardList"  parameterType="hashMap" resultType="com.its.vo.BoardVo">
+ 		SELECT
+ 		   	bd.`id` AS boardId,
+  		  	bd.`member_id` AS memberId,
+  		  	bd.`title`,
+  		  	bd.`content`,
+  		  	bd.`status`,
+  		  	bd.`updated`,
+  		  	bd.`created`
+		FROM
+		  board bd
+		WHERE bd.status = '1'
+	</select>
+	
+  	<select id="getBoardListCnt"  parameterType="hashMap" resultType="integer">
+ 		SELECT
+ 		   	count(*)
+		FROM
+		  board bd
+		WHERE bd.status = '1'
+	</select>
+	
+	<select id="getBoardInfo"  parameterType="hashMap" resultType="com.its.vo.BoardVo">
+ 		SELECT
+ 		   	bd.`id` AS boardId,
+  		  	bd.`member_id` AS memberId,
+  		  	bd.`title`,
+  		  	bd.`content`,
+  		  	bd.`status`,
+  		  	bd.`updated`,
+  		  	bd.`created`,
+  		  	com.`id` AS commentId,
+  		  	com.`comment`,
+  		  	com.`status` AS commentStatus,
+  		  	com.`updated` AS commentUpdated,
+  		  	com.`created` AS commentCreated
+		FROM
+		  board bd
+		  LEFT JOIN `board_comment` com
+		    ON (
+		      bd.`id` = com.`board_id`
+		    )
+		WHERE bd.`id` = #{boardId}
+	</select>
+	
+	<insert id="insertBoard" parameterType="hashMap">
+ 		INSERT INTO board
+		(
+		  `id`,
+  		  `member_id`,
+  		  `title`,
+  		  `content`,
+  		  `status`,
+  		  `updated`,
+  		  `created`
+		)
+		VALUES(
+		   NULL,
+		   #{memberId},
+		   #{title},
+		   #{content},
+		   DEFAULT,
+		   NOW(),
+		   NOW()
+		)
+	</insert>
+	
+</mapper>
