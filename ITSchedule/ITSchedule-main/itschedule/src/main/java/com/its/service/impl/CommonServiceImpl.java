@@ -20,4 +20,12 @@ public class CommonServiceImpl implements CommonService{
 		return commonMapper.getLoginInfo(param);
 	}
 
+	@Override
+	public int insertUser(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		result = commonMapper.insertUser(param);
+		return result;
+	}
+
 }

@@ -17,11 +17,4 @@
     </settings>
     
 	
-	<typeAliases>
-		<!-- <typeAlias type="kr.co.unecom.vo.SiteVo" alias="site"/> -->
-		<!-- <typeAlias type="kr.co.unecom.vo.PageVo" alias="page"/> -->
-		<!-- <typeAlias type="kr.co.unecom.vo.LoginVo" alias="login"/> -->		
-
-	</typeAliases>
-     
 </configuration>

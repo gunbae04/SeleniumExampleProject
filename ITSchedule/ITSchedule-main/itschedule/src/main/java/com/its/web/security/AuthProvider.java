@@ -2,8 +2,11 @@ package com.its.web.security;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,21 +16,27 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.its.controller.MainController;
+import com.its.service.CommonService;
 import com.its.vo.LoginVo;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component("authProvider")
 public class AuthProvider implements AuthenticationProvider {
 
-//	@Autowired
-//	private LoginService loginService;
+	@Autowired
+	private CommonService commonService;
 	
-//	@Autowired 
-//	private PasswordEncoder passwordEncoder;
+	@Autowired 
+	private PasswordEncoder passwordEncoder;
 	
-	@Value("${server.dev}")
-	private boolean iDev;
+//	@Value("${server.dev}")
+//	private boolean iDev;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -36,7 +45,7 @@ public class AuthProvider implements AuthenticationProvider {
 		String userPw = authentication.getCredentials().toString();
 		boolean loginFl = false;
 		
-//		String bcryptPassword = passwordEncoder.encode(userPw);
+		
 		if (userId == null || userId.equals("")) {
 			throw new UsernameNotFoundException("#없는 아이디입니다.");
 		}
@@ -45,21 +54,22 @@ public class AuthProvider implements AuthenticationProvider {
 			throw new UsernameNotFoundException("#잘못된 비밀번호 입니다.");
 		} 
 		
-//		LoginVo loginvo = loginService.getLoginInfo(userId);
-		LoginVo loginvo = null;
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("loginId",userId);
+		LoginVo loginvo = commonService.getLoginInfo(param);
 		
 		if( loginvo == null ) {
 			throw new UsernameNotFoundException("#없는 유저 정보입니다.");
 		}
-/*		
+		
+		log.info(loginvo.toString());
+		
 		if ( passwordEncoder.matches(userPw, loginvo.getPassword())) { 
 			loginFl = true;
 		}else {
 			throw new UsernameNotFoundException("#없는 유저 정보입니다.");
 		}
-*/
-		loginFl = false;
-		
+
 		List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 		
 		if (loginvo != null ) {

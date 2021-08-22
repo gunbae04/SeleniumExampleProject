@@ -22,8 +22,8 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://itsdb.c5jgzgfzssxq.ap-northeast-2.rds.amazonaws.com:3306/itsdb?useSSL=false&amp;serverTimezone=UTC"></property>
-		<property name="username" value="admin"></property>
-		<property name="password" value="itsdb)()(!"></property>
+		<property name="username" value="itsdb"></property>
+		<property name="password" value="gunbaedb#^%"></property>
 	</bean>
 
     <bean id="sqlSessionFactory" name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
