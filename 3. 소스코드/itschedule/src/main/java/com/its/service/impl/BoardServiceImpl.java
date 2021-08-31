@@ -23,13 +23,11 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int getBoardListCnt(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return boardMapper.getBoardListCnt(param);
 	}
 
 	@Override
 	public BoardVo getBoardInfo(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return boardMapper.getBoardInfo(param);
 	}
 	
@@ -37,6 +35,20 @@ public class BoardServiceImpl implements BoardService {
 	public int insertBoard(Map<String, Object> param) {
 		int result = 0;
 		result = boardMapper.insertBoard(param);
+		return result;
+	}
+
+	@Override
+	public int updateBoard(Map<String, Object> param) {
+		int result = 0;
+		result = boardMapper.updateBoard(param);
+		return result;
+	}
+
+	@Override
+	public int delBoard(Map<String, Object> param) {
+		int result = 0;
+		result = boardMapper.delBoard(param);
 		return result;
 	}
 

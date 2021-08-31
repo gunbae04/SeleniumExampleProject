@@ -1,6 +1,5 @@
 package com.its.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,11 +80,14 @@ public class MainController extends CommonController{
 		
 		int result = 0;
 		
+		
+		String loginId = param.get("userId").toString();
 		String password = param.get("password").toString();
 		
 		String bcryptPassword = passwordEncoder.encode(password);
 		
 		param.put("password", bcryptPassword);
+		param.put("loginId", loginId);
 		
 		//아이디 존재하는 중복체크
 		LoginVo isId = commonService.getLoginInfo(param);
@@ -126,7 +128,7 @@ public class MainController extends CommonController{
 		
 		int no = resultListCnt - (PAGE_SIZE * (pageNum - 1));
 		
-		String paging = pagingUtil.paging(resultListCnt, PAGE_SIZE, pageNum, "noticeListGet");
+		String paging = pagingUtil.paging(resultListCnt, PAGE_SIZE, pageNum, "boardListGet");
 		
 		model.addAttribute("paging", paging);
 		

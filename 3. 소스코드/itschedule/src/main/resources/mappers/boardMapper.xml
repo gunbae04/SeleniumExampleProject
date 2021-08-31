@@ -9,14 +9,15 @@
   		  	bd.`title`,
   		  	bd.`content`,
   		  	bd.`status`,
-  		  	bd.`updated`,
-  		  	bd.`created`,
+  		  	DATE_ADD(bd.`updated`, INTERVAL +9 HOUR) AS updated,
+  		  	DATE_ADD(bd.`created`, INTERVAL +9 HOUR) AS created,
   		  	mem.`username` AS userName
 		FROM
 		  board bd,
 		  member mem
 		WHERE bd.`member_id` = mem.`id`
 		AND bd.status = '1'
+		ORDER BY bd.`id` DESC
 	</select>
 	
   	<select id="getBoardListCnt"  parameterType="hashMap" resultType="integer">
@@ -34,8 +35,8 @@
   		  	bd.`title`,
   		  	bd.`content`,
   		  	bd.`status`,
-  		  	bd.`updated`,
-  		  	bd.`created`,
+  		  	DATE_ADD(bd.`updated`, INTERVAL +9 HOUR) AS updated,
+  		  	DATE_ADD(bd.`created`, INTERVAL +9 HOUR) AS created,
   		  	com.`id` AS commentId,
   		  	com.`comment`,
   		  	com.`status` AS commentStatus,
@@ -71,5 +72,24 @@
 		   NOW()
 		)
 	</insert>
+	
+	<update id="updateBoard" parameterType="hashmap" >
+		UPDATE 
+		  board 
+		SET
+		  title = #{title},
+		  content = #{content},
+		  updated = now()
+		WHERE id = #{boardId}
+	</update>
+	
+	<update id="delBoard" parameterType="hashmap" >
+		UPDATE 
+		  board 
+		SET
+		  status = '0',
+		  updated = now()
+		WHERE id = #{boardId}
+	</update>
 	
 </mapper>

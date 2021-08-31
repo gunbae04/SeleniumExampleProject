@@ -14,5 +14,9 @@ public interface BoardMapper {
 	BoardVo getBoardInfo(Map<String, Object> param);
 	
 	int insertBoard(Map<String, Object> param);
+	
+	int updateBoard(Map<String, Object> param);
+	
+	int delBoard(Map<String, Object> param);
 
 }
