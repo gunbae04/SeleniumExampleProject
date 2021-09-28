@@ -3,6 +3,7 @@ package com.its.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.its.vo.CodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +24,11 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int getBoardListCnt(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return boardMapper.getBoardListCnt(param);
 	}
 
 	@Override
 	public BoardVo getBoardInfo(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return boardMapper.getBoardInfo(param);
 	}
 	
@@ -38,6 +37,25 @@ public class BoardServiceImpl implements BoardService {
 		int result = 0;
 		result = boardMapper.insertBoard(param);
 		return result;
+	}
+
+	@Override
+	public int updateBoard(Map<String, Object> param) {
+		int result = 0;
+		result = boardMapper.updateBoard(param);
+		return result;
+	}
+
+	@Override
+	public int delBoard(Map<String, Object> param) {
+		int result = 0;
+		result = boardMapper.delBoard(param);
+		return result;
+	}
+
+	@Override
+	public List<CodeVo> getCodeList(Map<String, Object> param) {
+		return boardMapper.getCodeList(param);
 	}
 
 }

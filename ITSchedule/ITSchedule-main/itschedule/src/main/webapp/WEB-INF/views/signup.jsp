@@ -11,7 +11,7 @@
     <meta name="description" content="bootstrap admin template">
     <meta name="author" content="">
     
-    <title>Login V3 | Remark Admin Template</title>
+    <title>Login | ITShedule </title>
     
     <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
     <link rel="shortcut icon" href="/images/favicon.ico">
@@ -64,7 +64,7 @@
           <div class="panel-body">
             <div class="brand">
               <img class="brand-img" src="/images/logo-colored.png" alt="...">
-              <h2 class="brand-text font-size-18">Remark</h2>
+              <h2 class="brand-text font-size-18">ITShedule</h2>
             </div>
             <form method="post" action="#">
               <div class="form-group form-material floating" data-plugin="formMaterial">
@@ -90,6 +90,7 @@
           </div>
         </div>
 
+<!--
         <footer class="page-copyright page-copyright-inverse">
           <p>WEBSITE BY Creation Studio</p>
           <p>© 2018. All RIGHT RESERVED.</p>
@@ -104,6 +105,7 @@
             <i class="icon bd-google-plus" aria-hidden="true"></i>
           </a>
           </div>
+-->
         </footer>
       </div>
     </div>

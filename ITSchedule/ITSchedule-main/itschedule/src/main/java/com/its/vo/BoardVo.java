@@ -30,4 +30,7 @@ public class BoardVo {
 	private String fileStatus;
 	private String fileUpdated;
 	private String fileCreated;
+	
+	//etc
+	private String userName;
 }

@@ -42,6 +42,9 @@ $(".btn_add_action").click(function() {
 			success: function(dom) {
 				if(dom == "1"){
 					location.href = "/login";
+				}else if(dom == "2"){
+					alert("아이디가 중복됩니다");
+					return false;
 				}else{
 					alert("회원가입에 실패 하였습니다.");
 					return false;

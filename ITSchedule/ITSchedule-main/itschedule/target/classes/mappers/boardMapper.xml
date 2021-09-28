@@ -9,11 +9,19 @@
   		  	bd.`title`,
   		  	bd.`content`,
   		  	bd.`status`,
-  		  	bd.`updated`,
-  		  	bd.`created`
+  		  	DATE_ADD(bd.`updated`, INTERVAL +9 HOUR) AS updated,
+  		  	DATE_ADD(bd.`created`, INTERVAL +9 HOUR) AS created,
+  		  	mem.`username` AS userName
 		FROM
-		  board bd
-		WHERE bd.status = '1'
+		  board bd,
+		  member mem
+		WHERE bd.`member_id` = mem.`id`
+		AND bd.status = '1'
+		<if test='searchTitle != null and searchTitle != ""'>
+		  	AND bd.`title` LIKE  CONCAT('%',#{searchTitle},'%')
+		</if>
+		ORDER BY bd.`id` DESC
+		LIMIT #{pageStartNum}, #{pageSize}
 	</select>
 	
   	<select id="getBoardListCnt"  parameterType="hashMap" resultType="integer">
@@ -22,6 +30,9 @@
 		FROM
 		  board bd
 		WHERE bd.status = '1'
+		<if test='searchTitle != null and searchTitle != ""'>
+		  	AND bd.`title` LIKE  CONCAT('%',#{searchTitle},'%')
+		</if>
 	</select>
 	
 	<select id="getBoardInfo"  parameterType="hashMap" resultType="com.its.vo.BoardVo">
@@ -31,8 +42,8 @@
   		  	bd.`title`,
   		  	bd.`content`,
   		  	bd.`status`,
-  		  	bd.`updated`,
-  		  	bd.`created`,
+  		  	DATE_ADD(bd.`updated`, INTERVAL +9 HOUR) AS updated,
+  		  	DATE_ADD(bd.`created`, INTERVAL +9 HOUR) AS created,
   		  	com.`id` AS commentId,
   		  	com.`comment`,
   		  	com.`status` AS commentStatus,
@@ -68,5 +79,38 @@
 		   NOW()
 		)
 	</insert>
+	
+	<update id="updateBoard" parameterType="hashmap" >
+		UPDATE 
+		  board 
+		SET
+		  title = #{title},
+		  content = #{content},
+		  updated = now()
+		WHERE id = #{boardId}
+	</update>
+	
+	<update id="delBoard" parameterType="hashmap" >
+		UPDATE 
+		  board 
+		SET
+		  status = '0',
+		  updated = now()
+		WHERE id = #{boardId}
+	</update>
+
+	<select id="getCodeList"  parameterType="hashMap" resultType="com.its.vo.CodeVo">
+		SELECT
+			`id` AS codeId,
+			`code_type` AS codeType,
+			`name` AS codeName,
+			`status` AS codeStatus,
+			`updated`,
+			`created`
+		FROM
+			key_code
+		WHERE code_type = #{codeType}
+		ORDER BY id ASC
+	</select>
 	
 </mapper>
